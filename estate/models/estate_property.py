@@ -1,5 +1,3 @@
-from email.policy import default
-from xmlrpc.client import Boolean
 from dateutil.relativedelta import relativedelta
 from odoo import fields, models
 
@@ -29,3 +27,4 @@ class Property(models.Model):
         default='new'
     )
     active = fields.Boolean(default=True)
+    property_type_id = fields.Many2one("estate.property.type", string="Property Type")

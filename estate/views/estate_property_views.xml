@@ -52,6 +52,7 @@
                     <h1>
                         <field name="name"/>
                     </h1>
+                    <field name="tag_ids" widget="many2many_tags" />
                     <group col="2">
                         <field name="property_type_id" colspan="1"/>
                         <field name="expected_price" colspan="1"/>

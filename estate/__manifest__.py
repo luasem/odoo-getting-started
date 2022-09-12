@@ -4,7 +4,7 @@
     'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
-
+        'views/estate_property_offer_views.xml',
         'views/estate_property_views.xml',
         'views/estate_property_type_views.xml',
         'views/estate_property_tag_views.xml',
@@ -33,7 +33,6 @@
     # 'data': [
     #     'security/crm_security.xml',
     #     'security/ir.model.access.csv',
-
     #     'data/crm_lead_prediction_data.xml',
     #     'data/crm_lost_reason_data.xml',
     #     'data/crm_stage_data.xml',
@@ -41,12 +40,10 @@
     #     'data/digest_data.xml',
     #     'data/mail_data.xml',
     #     'data/crm_recurring_plan_data.xml',
-
     #     'wizard/crm_lead_lost_views.xml',
     #     'wizard/crm_lead_to_opportunity_views.xml',
     #     'wizard/crm_lead_to_opportunity_mass_views.xml',
     #     'wizard/crm_merge_opportunities_views.xml',
-
     #     'views/assets.xml',
     #     'views/calendar_views.xml',
     #     'views/crm_recurring_plan_views.xml',

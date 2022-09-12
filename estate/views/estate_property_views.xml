@@ -10,17 +10,17 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <search string="Estate Property">
-                <field name="name"/>
-                <field name="property_type_id"/>
-                <field name="postcode"/>
-                <field name="expected_price"/>
-                <field name="bedrooms"/>
-                <field name="living_area"/>
-                <field name="facades"/>
-                <separator/>
-                <filter string="Available" name="active" domain="[('status', 'in', ['new', 'offer_received'])]"/>
+                <field name="name" />
+                <field name="property_type_id" />
+                <field name="postcode" />
+                <field name="expected_price" />
+                <field name="bedrooms" />
+                <field name="living_area" />
+                <field name="facades" />
+                <separator />
+                <filter string="Available" name="active" domain="[('status', 'in', ['new', 'offer_received'])]" />
                 <group string="Group By">
-                    <filter name="postcode" context="{'group_by':'postcode'}"/>
+                    <filter name="postcode" context="{'group_by':'postcode'}" />
                 </group>
             </search>
         </field>
@@ -31,14 +31,14 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <tree string="Properties">
-                <field name="name"/>
-                <field name="property_type_id"/>
-                <field name="postcode"/>
-                <field name="bedrooms"/>
-                <field name="living_area"/>
-                <field name="expected_price"/>
-                <field name="selling_price"/>
-                <field name="date_availability"/>
+                <field name="name" />
+                <field name="property_type_id" />
+                <field name="postcode" />
+                <field name="bedrooms" />
+                <field name="living_area" />
+                <field name="expected_price" />
+                <field name="selling_price" />
+                <field name="date_availability" />
             </tree>
         </field>
     </record>
@@ -50,28 +50,31 @@
             <form string="Property">
                 <sheet>
                     <h1>
-                        <field name="name"/>
+                        <field name="name" />
                     </h1>
                     <field name="tag_ids" widget="many2many_tags" />
                     <group col="2">
-                        <field name="property_type_id" colspan="1"/>
-                        <field name="expected_price" colspan="1"/>
-                        <field name="postcode" colspan="1"/>
-                        <field name="selling_price" colspan="1"/>
-                        <field name="date_availability" colspan="1"/>
+                        <field name="property_type_id" colspan="1" />
+                        <field name="expected_price" colspan="1" />
+                        <field name="postcode" colspan="1" />
+                        <field name="selling_price" colspan="1" />
+                        <field name="date_availability" colspan="1" />
                     </group>
                     <notebook>
                         <page string="Description">
                             <group col="2">
                                 <field name="description" />
                                 <field name="bedrooms" />
-                                <field name="living_area"/>
+                                <field name="living_area" />
                                 <field name="facades" />
                                 <field name="garage" />
                                 <field name="garden" />
                                 <field name="garden_area" />
                                 <field name="garden_orientation" />
                             </group>
+                        </page>
+                        <page string="Offers">
+                            <field name="offer_ids" />
                         </page>
                         <page string="Other Info">
                             <group>

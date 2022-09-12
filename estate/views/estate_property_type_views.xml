@@ -12,7 +12,7 @@
             <form string="Property Type">
                 <sheet>
                     <h1>
-                        <field name="name"/>
+                        <field name="name" />
                     </h1>
                 </sheet>
             </form>

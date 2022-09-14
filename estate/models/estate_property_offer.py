@@ -2,7 +2,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, exceptions, fields, models
+from odoo import api, exceptions, fields, models, tools
 
 
 class PropertyOffer(models.Model):
@@ -15,6 +15,8 @@ class PropertyOffer(models.Model):
     property_id = fields.Many2one("estate.property", required=True)
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(string="Deadline", compute="_compute_deadline", inverse='_inverse_deadline')
+
+    _sql_constraints = [('positive_price', 'CHECK(price > 0)', 'The price offer must be strictly positive.')]
 
     @api.depends('validity', 'create_date')
     def _compute_deadline(self):
@@ -42,6 +44,17 @@ class PropertyOffer(models.Model):
             record.property_id.buyer_id = record.partner_id
             record.property_id.selling_price = record.price
         return True
+
+    @api.constrains('status', 'property_id.expected_price')
+    def _min_selling_price(self):
+        for record in self:
+            if record.status == 'accepted':
+                if tools.float_compare(record.price, record.property_id.expected_price * 0.9, 2) == -1:
+                    raise exceptions.ValidationError(
+                        "The selling price must be at least"
+                        " 90% of the expected price! Try reducing"
+                        " the expected price."
+                    )
 
     def reject_offer(self):
         for record in self:

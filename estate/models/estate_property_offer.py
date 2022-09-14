@@ -2,7 +2,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
+from odoo import api, exceptions, fields, models
 
 
 class PropertyOffer(models.Model):
@@ -33,3 +33,17 @@ class PropertyOffer(models.Model):
             d1 = datetime.strptime(fields.Date.to_string(fields.Date.to_date(create_date)), fmt)
             d2 = datetime.strptime(fields.Date.to_string(record.date_deadline), fmt)
             record.validity = (d2 - d1).days
+
+    def accept_offer(self):
+        for record in self:
+            if record.property_id.status == 'sold':
+                raise exceptions.UserError_('This property has already been sold. Offers can no longer be accepted')
+            record.status = 'accepted'
+            record.property_id.buyer_id = record.partner_id
+            record.property_id.selling_price = record.price
+        return True
+
+    def reject_offer(self):
+        for record in self:
+            record.status = 'refused'
+        return True

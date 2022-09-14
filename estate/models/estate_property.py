@@ -1,6 +1,6 @@
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models, exceptions
+from odoo import api, fields, models
 
 
 class Property(models.Model):
@@ -47,7 +47,7 @@ class Property(models.Model):
     def _compute_total_area(self):
         for record in self:
             record.total_area = record.living_area + record.garden_area
-    
+
     @api.depends('offer_ids.price')
     def _compute_best_price(self):
         for record in self:
@@ -61,4 +61,3 @@ class Property(models.Model):
     #     for property in self:
     #         if property.status not in ['new', 'canceled']:
     #             raise exceptions.UserError("Only new and canceled properties can be deleted!")
-

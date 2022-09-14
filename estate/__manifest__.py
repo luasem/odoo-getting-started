@@ -2,6 +2,7 @@
     'name': 'estate',
     'license': 'LGPL-3',
     'depends': ['base'],
+    'author': 'Odoo Community Association (OCA)',
     'data': [
         'security/ir.model.access.csv',
         'views/estate_property_offer_views.xml',

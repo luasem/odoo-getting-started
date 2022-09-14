@@ -30,7 +30,7 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree string="Properties">
+            <tree>
                 <field name="name" />
                 <field name="property_type_id" />
                 <field name="postcode" />
@@ -57,7 +57,7 @@
                         <field name="property_type_id" colspan="1" />
                         <field name="expected_price" colspan="1" />
                         <field name="postcode" colspan="1" />
-                        <field name="best_price" colspan="1"/>
+                        <field name="best_price" colspan="1" />
                         <field name="date_availability" colspan="1" />
                         <field name="selling_price" colspan="1" />
                     </group>

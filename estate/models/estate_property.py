@@ -56,6 +56,14 @@ class Property(models.Model):
             else:
                 record.best_price = 0
 
+    @api.onchange('garden')
+    def _onchange_garden(self):
+        if self.garden == True:
+            self.garden_area = 10
+            self.garden_orientation = 'north'
+        if self.garden == False:
+            self.garden_area = 0
+            self.garden_orientation = ''
     # @api.ondelete(at_uninstall=False)
     # def _unlink_if_status_is_new_or_canceled(self):
     #     for property in self:

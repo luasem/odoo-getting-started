@@ -73,14 +73,14 @@ class Property(models.Model):
     def sell_property(self):
         for record in self:
             if record.status == 'canceled':
-                raise exceptions.UserError_('Canceled properties cannot be sold.')
+                raise exceptions.UserError('Canceled properties cannot be sold.')
             record.status = 'sold'
         return True
 
     def cancel_property(self):
         for record in self:
             if record.status == 'sold':
-                raise exceptions.UserError_('Sold properties cannot be canceled.')
+                raise exceptions.UserError('Sold properties cannot be canceled.')
             record.status = 'canceled'
         return True
 

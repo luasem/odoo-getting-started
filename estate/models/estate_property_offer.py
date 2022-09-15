@@ -39,10 +39,11 @@ class PropertyOffer(models.Model):
     def accept_offer(self):
         for record in self:
             if record.property_id.status == 'sold':
-                raise exceptions.UserError_('This property has already been sold. Offers can no longer be accepted')
+                raise exceptions.UserError('This property has already been sold. Offers can no longer be accepted')
             record.status = 'accepted'
             record.property_id.buyer_id = record.partner_id
             record.property_id.selling_price = record.price
+            record.property_id.status = 'offer_accepted'
         return True
 
     @api.constrains('status', 'property_id.expected_price')

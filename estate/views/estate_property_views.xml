@@ -51,6 +51,7 @@
                 <header>
                     <button string="SOLD" name="sell_property" type="object" class="oe_highlight" />
                     <button string="CANCEL" name="cancel_property" type="object" class="oe_highlight" />
+                    <field name="status" widget='statusbar' statusbar_visible="new,offer_received,offer_accepted,sold" />
                 </header>
                 <sheet>
                     <h1>

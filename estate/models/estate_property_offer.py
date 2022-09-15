@@ -8,6 +8,7 @@ from odoo import api, exceptions, fields, models, tools
 class PropertyOffer(models.Model):
     _name = "estate.property.offer"
     _description = "Estate Property Offer"
+    _order = "price desc"
 
     price = fields.Float()
     status = fields.Selection(selection=[('accepted', 'Accepted'), ('refused', 'Refused')], copy=False)

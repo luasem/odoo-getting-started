@@ -6,6 +6,7 @@ from odoo import api, exceptions, fields, models
 class Property(models.Model):
     _name = "estate.property"
     _description = "Estate Property"
+    _order = "id desc"
     # Calcular una fecha futura
     three_months_from_now = fields.Date.today() + relativedelta(months=3)
 

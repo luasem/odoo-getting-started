@@ -25,7 +25,8 @@ class Property(models.Model):
     garden_orientation = fields.Selection(
         selection=[('north', 'North'), ('south', 'South'), ('east', 'East'), ('west', 'West')]
     )
-    status = fields.Selection(
+    state = fields.Selection(
+        string="Status",
         selection=[
             ('new', 'New'),
             ('offer_received', 'Offer Recieved'),
@@ -73,16 +74,16 @@ class Property(models.Model):
 
     def sell_property(self):
         for record in self:
-            if record.status == 'canceled':
+            if record.state == 'canceled':
                 raise exceptions.UserError('Canceled properties cannot be sold.')
-            record.status = 'sold'
+            record.state = 'sold'
         return True
 
     def cancel_property(self):
         for record in self:
-            if record.status == 'sold':
+            if record.state == 'sold':
                 raise exceptions.UserError('Sold properties cannot be canceled.')
-            record.status = 'canceled'
+            record.state = 'canceled'
         return True
 
     # @api.ondelete(at_uninstall=False)

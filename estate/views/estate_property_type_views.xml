@@ -9,9 +9,9 @@
         <field name="name">estate.property.type.view.tree</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
-            <tree string="">
-               <field name="sequence" widget='handle' />
-               <field name="name" /> 
+            <tree>
+                <field name="sequence" widget='handle' />
+                <field name="name" />
             </tree>
         </field>
     </record>
@@ -29,7 +29,7 @@
                         <tree delete='0'>
                             <field name="name" />
                             <field name="expected_price" />
-                            <field name="status" />
+                            <field name="state" />
                         </tree>
                     </field>
                 </sheet>

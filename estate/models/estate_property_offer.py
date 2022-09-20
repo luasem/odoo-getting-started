@@ -11,7 +11,7 @@ class PropertyOffer(models.Model):
     _order = "price desc"
 
     price = fields.Float()
-    status = fields.Selection(selection=[('accepted', 'Accepted'), ('refused', 'Refused')], copy=False)
+    state = fields.Selection(selection=[('accepted', 'Accepted'), ('refused', 'Refused')], copy=False)
     partner_id = fields.Many2one("res.partner", string="Partner", required=True)
     property_id = fields.Many2one("estate.property", required=True)
     validity = fields.Integer(default=7)
@@ -39,18 +39,18 @@ class PropertyOffer(models.Model):
 
     def accept_offer(self):
         for record in self:
-            if record.property_id.status == 'sold':
+            if record.property_id.state == 'sold':
                 raise exceptions.UserError('This property has already been sold. Offers can no longer be accepted')
-            record.status = 'accepted'
+            record.state = 'accepted'
             record.property_id.buyer_id = record.partner_id
             record.property_id.selling_price = record.price
-            record.property_id.status = 'offer_accepted'
+            record.property_id.state = 'offer_accepted'
         return True
 
-    @api.constrains('status', 'property_id.expected_price')
+    @api.constrains('state', 'property_id.expected_price')
     def _min_selling_price(self):
         for record in self:
-            if record.status == 'accepted':
+            if record.state == 'accepted':
                 if tools.float_compare(record.price, record.property_id.expected_price * 0.9, 2) == -1:
                     raise exceptions.ValidationError(
                         "The selling price must be at least"
@@ -60,5 +60,5 @@ class PropertyOffer(models.Model):
 
     def reject_offer(self):
         for record in self:
-            record.status = 'refused'
+            record.state = 'refused'
         return True

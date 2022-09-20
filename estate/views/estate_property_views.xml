@@ -3,6 +3,7 @@
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active':True}</field>
     </record>
 
     <record id="estate_property_search" model="ir.ui.view">
@@ -30,15 +31,21 @@
         <field name="name">estate.property.tree</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree
+                decoration-success="state in ('offer_received', 'offer_accepted')"
+                decoration-bf="state=='offer_accepted'"
+                decoration-muted="state=='sold'"
+            >
+                <field name="state" invisible="1" />
                 <field name="name" />
                 <field name="property_type_id" />
                 <field name="postcode" />
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" />
                 <field name="bedrooms" />
                 <field name="living_area" />
                 <field name="expected_price" />
                 <field name="selling_price" />
-                <field name="date_availability" />
+                <field name="date_availability" optional="hide" />
             </tree>
         </field>
     </record>
@@ -49,21 +56,21 @@
         <field name="arch" type="xml">
             <form string="Property">
                 <header>
-                        <button
+                    <button
                         states="new,offer_received"
                         string="SOLD"
                         name="sell_property"
                         type="object"
                         class="oe_link"
                     />
-                        <button
+                    <button
                         states="offer_accepted"
                         string="SOLD"
                         name="sell_property"
                         type="object"
                         class="oe_highlight"
                     />
-                        <button
+                    <button
                         states="new,offer_received,offer_accepted"
                         string="CANCEL"
                         name="cancel_property"

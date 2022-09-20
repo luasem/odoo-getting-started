@@ -1,6 +1,6 @@
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, exceptions, fields, models
+from odoo import _, api, exceptions, fields, models
 
 
 class Property(models.Model):
@@ -75,14 +75,14 @@ class Property(models.Model):
     def sell_property(self):
         for record in self:
             if record.state == 'canceled':
-                raise exceptions.UserError('Canceled properties cannot be sold.')
+                raise exceptions.UserError(_('Canceled properties cannot be sold.'))
             record.state = 'sold'
         return True
 
     def cancel_property(self):
         for record in self:
             if record.state == 'sold':
-                raise exceptions.UserError('Sold properties cannot be canceled.')
+                raise exceptions.UserError(_('Sold properties cannot be canceled.'))
             record.state = 'canceled'
         return True
 

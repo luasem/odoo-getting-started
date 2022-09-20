@@ -2,7 +2,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, exceptions, fields, models, tools
+from odoo import _, api, exceptions, fields, models, tools
 
 
 class PropertyOffer(models.Model):
@@ -40,7 +40,7 @@ class PropertyOffer(models.Model):
     def accept_offer(self):
         for record in self:
             if record.property_id.state == 'sold':
-                raise exceptions.UserError('This property has already been sold. Offers can no longer be accepted')
+                raise exceptions.UserError(_('This property has already been sold. Offers can no longer be accepted'))
             record.state = 'accepted'
             record.property_id.buyer_id = record.partner_id
             record.property_id.selling_price = record.price
@@ -53,9 +53,11 @@ class PropertyOffer(models.Model):
             if record.state == 'accepted':
                 if tools.float_compare(record.price, record.property_id.expected_price * 0.9, 2) == -1:
                     raise exceptions.ValidationError(
-                        "The selling price must be at least"
-                        " 90% of the expected price! Try reducing"
-                        " the expected price."
+                        _(
+                            "The selling price must be at least"
+                            " 90% of the expected price! Try reducing"
+                            " the expected price."
+                        )
                     )
 
     def reject_offer(self):

@@ -4,7 +4,7 @@
         <field name="name">estate.property.offer.view.tree</field>
         <field name="model">estate.property.offer</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree editable="top" decoration-success="state=='accepted'" decoration-danger="state=='refused'">
                 <field name="price" />
                 <field name="partner_id" />
                 <field name="validity" />
@@ -21,7 +21,7 @@
                     icon="fa-remove"
                     attrs="{'invisible': ['|', ('state', '=', 'accepted'),('state','=','refused')]}"
                 />
-                <field name="state" />
+                <field name="state" invisible="1" />
             </tree>
         </field>
     </record>

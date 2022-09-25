@@ -66,6 +66,10 @@ class PropertyOffer(models.Model):
             record.state = 'refused'
         return True
 
-    # @api.model
-    # def create(self, vals):
-    #     self.env['estate.property'].browse(vals['property_id'])
+    @api.model
+    def create(self, vals):
+        estate_property = self.env['estate.property'].browse(vals['property_id'])
+        if any(offer.price > vals['price'] for offer in estate_property.offer_ids):
+            raise exceptions.UserError(_('New offers can\'t be lower than existing ones!'))
+        estate_property.set_offer_received()
+        return super(PropertyOffer, self).create(vals)

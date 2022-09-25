@@ -29,7 +29,7 @@ class Property(models.Model):
         string="Status",
         selection=[
             ('new', 'New'),
-            ('offer_received', 'Offer Recieved'),
+            ('offer_received', 'Offer Received'),
             ('offer_accepted', 'Offer Accepted'),
             ('sold', 'Sold'),
             ('canceled', 'Canceled'),
@@ -86,8 +86,12 @@ class Property(models.Model):
             record.state = 'canceled'
         return True
 
-    # @api.ondelete(at_uninstall=False)
-    # def _unlink_if_status_is_new_or_canceled(self):
-    #     for property in self:
-    #         if property.status not in ['new', 'canceled']:
-    #             raise exceptions.UserError("Only new and canceled properties can be deleted!")
+    @api.ondelete(at_uninstall=False)
+    def _unlink_if_status_is_new_or_canceled(self):
+        for record in self:
+            if record.state not in ['new', 'canceled']:
+                raise exceptions.UserError(_("Only new and canceled properties can be deleted!"))
+
+    def set_offer_received(self):
+        if self.state == 'new':
+            self.state = 'offer_received'

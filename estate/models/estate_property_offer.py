@@ -72,4 +72,4 @@ class PropertyOffer(models.Model):
         if any(offer.price > vals['price'] for offer in estate_property.offer_ids):
             raise exceptions.UserError(_('New offers can\'t be lower than existing ones!'))
         estate_property.set_offer_received()
-        return super(PropertyOffer, self).create(vals)
+        return super().create(vals)
